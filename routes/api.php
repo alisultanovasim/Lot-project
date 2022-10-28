@@ -17,6 +17,7 @@ Route::pattern('lotId','[0-9]+');
 Route::group(['prefix'=>'lot'],function (){
     Route::get('/',[\App\Http\Controllers\Lot\LotController::class,'index']);
     Route::get('/{lotId}',[\App\Http\Controllers\Lot\LotController::class,'show']);
+    Route::get('/filter',[\App\Http\Controllers\Lot\LotController::class,'filter']);
     Route::post('/',[\App\Http\Controllers\Lot\LotController::class,'store']);
     Route::post('/add-category/{lotId}',[\App\Http\Controllers\Lot\LotController::class,'addCategory']);
     Route::patch('/{lotId}',[\App\Http\Controllers\Lot\LotController::class,'update']);
@@ -29,6 +30,6 @@ Route::group(['prefix'=>'category'],function (){
     Route::post('/',[\App\Http\Controllers\Lot\CategoryController::class,'store']);
     Route::patch('/{catId}',[\App\Http\Controllers\Lot\CategoryController::class,'update']);
     Route::delete('/{catId}',[\App\Http\Controllers\Lot\CategoryController::class,'delete']);
-});
+});//categories
 
 

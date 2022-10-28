@@ -68,4 +68,15 @@ class LotController extends Controller
 
         return $this->dataResponse($lotCategory,Response::HTTP_CREATED);
     }
+
+    public function filter(Request $request)
+    {
+        $per_page=$request->per_page ?? 10;
+        $lot=Lot::query()
+            ->whereHas('categories',function ($q) use ($request){
+                return $q->where('name','like','%'.$request->category.'%');
+            })
+            ->paginate($per_page);
+        return $this->dataResponse($lot);
+    }
 }
