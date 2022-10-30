@@ -25,6 +25,10 @@ class CategoryController extends Controller
     public function store(CategoryRequest $categoryRequest)
     {
         $categoryRequest->validated();
+        $check=Category::query()->whereName($categoryRequest->name)->first();
+
+        if ($check)
+            return $this->errorResponse(trans('response.theCategoryAlreadyExist'),Response::HTTP_BAD_REQUEST);
 
         $category=Category::query()->create($categoryRequest->only(['name']));
         return $this->successResponse($category,Response::HTTP_CREATED);
